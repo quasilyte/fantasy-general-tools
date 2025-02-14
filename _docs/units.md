@@ -56,19 +56,19 @@ Instead, it is advised to change units in-place if you want to replace them with
 
 `MeleeDamageType` could be `normal`, `magic`, and `mech`.
 
-Skirmish, Missile, and Siege damage use the same rules as **melee** damage properties. A unit can have multiple damage scores as illustrated by Dreggo.
+Skirmish, Missile, and Siege damage use the same rules as **melee** damage properties. A unit can have multiple damage scores as illustrated by Dreggo. If the damage score is **0**, it will not be listed and its damage type doesn't affect anything. So, Dreggo has no **siege** attack showed in the game.
 
 `UnitClass` could be:
-* `heavy_infantry`,
-* `light_infantry`,
-* `skirmisher`,
-* `archer`,
-* `cavalry`,
-* `light_cavalry`,
-* `sky_hunter`,
-* `bomber`,
-* `siege_engine`,
-* `spell_caster`,
+* `heavy_infantry`
+* `light_infantry`
+* `skirmisher`
+* `archer`
+* `cavalry`
+* `light_cavalry`
+* `sky_hunter`
+* `bomber`
+* `siege_engine`
+* `spell_caster`
 
 Note that some stuff is hardcoded into the unit class. AFAIK, the support fire is an `archer` thing and there is no `ability` that would cover that.
 
@@ -123,6 +123,7 @@ Note that some stuff is hardcoded into the unit class. AFAIK, the support fire i
 * `hero_whirlwind` - an archmage hero spell
 * `hero_heal_beasts` - a beastmaster hero spell
 * `hero_plague` - a beastmaster hero spell
+
 Note that units can cast a hero spell. Their usage is not limited. This means a `hero_plague` spell can be cast every turn by a unit. Some of the spells above come from the item.
 
 `Ability1`, `Ability2`, and `Ability3` represent a list of unit's passives. Here is a list of possible values:
@@ -140,4 +141,5 @@ Note that units can cast a hero spell. Their usage is not limited. This means a 
 * `vulnerable_to_magic`
 * `mystic`
 * `berserk`
+
 If unit has less than 3 abilities, it's recommended to have blanks go after used ability slots.
