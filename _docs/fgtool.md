@@ -36,6 +36,8 @@ The `decode` command has some extra arguments. Use `--help` to learn about them:
 fgtool.exe decode --help
 ```
 
+> Warning: `decode` command cleans the output (default is `_output`) folder when executed!
+
 ## encode command
 
 The `encode` command has some extra arguments. Use `--help` to learn about them:
@@ -43,3 +45,5 @@ The `encode` command has some extra arguments. Use `--help` to learn about them:
 ```
 fgtool.exe encode --help
 ```
+
+> Warning: `encode` command cleans the output (default is `_patch`) folder when executed!

@@ -2,8 +2,10 @@ package dat
 
 import (
 	"bytes"
+	"encoding/hex"
 	"fmt"
 	"image/color"
+	"strconv"
 
 	"github.com/quasilyte/fantasy-general-tools/serdat"
 )
@@ -16,6 +18,45 @@ type PaletteFile struct {
 	Colors [256]color.NRGBA
 
 	ReverseIndex map[color.NRGBA]uint8
+}
+
+func PaletteEncode(origData []byte, override serdat.Palette) ([]byte, error) {
+	data := make([]byte, len(origData))
+	copy(data, origData)
+
+	var decodedColors [256][3]byte
+	for k, v := range override.Colors {
+		index, err := strconv.ParseInt(k, 16, 64)
+		if err != nil {
+			return nil, fmt.Errorf("colors: parse %q key: %v", k, err)
+		}
+		clrValues, err := hex.DecodeString(v)
+		if err != nil {
+			return nil, fmt.Errorf("colors: parse %q key's value: %v", k, err)
+		}
+		decodedColors[index] = [3]byte{
+			clrValues[0], // R
+			clrValues[1], // G
+			clrValues[2], // B
+		}
+	}
+
+	// Now patch the bytes inside origData with new (or unchanged) colors.
+
+	cmapIndex := bytes.Index(data, []byte("CMAP"))
+	if cmapIndex == -1 {
+		return nil, fmt.Errorf("CMAP chunk not found")
+	}
+	pos := cmapIndex + len("CMAP")
+	pos += 4 // Skip palette size (uint32)
+	for _, rgb := range &decodedColors {
+		data[pos+0] = rgb[0]
+		data[pos+1] = rgb[1]
+		data[pos+2] = rgb[2]
+		pos += 3
+	}
+
+	return data, nil
 }
 
 func ParsePaletteFile(data []byte) (*PaletteFile, error) {

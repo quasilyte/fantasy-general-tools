@@ -1,12 +1,8 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"flag"
 	"fmt"
-	"image"
-	"image/png"
 	"os"
 	"path/filepath"
 	"strings"
@@ -76,7 +72,18 @@ func doDecode(args []string) error {
 	if err != nil {
 		return fmt.Errorf("parse palette: %v", err)
 	}
+
 	if err := writeJSON(filepath.Join(outputPath, "palette.json"), pal.ToSerdat()); err != nil {
+		return err
+	}
+
+	// We can't reconstruct the original LBM file from palette.json as of yet,
+	// so copy an original just to make "encode" work.
+	if err := os.MkdirAll(filepath.Join(outputPath, "_orig"), os.ModePerm); err != nil {
+		return err
+	}
+	origPalFilename := filepath.Join(outputPath, "_orig", "FGPAL01.LBM")
+	if err := os.WriteFile(origPalFilename, paletteData, os.ModePerm); err != nil {
 		return err
 	}
 
@@ -142,20 +149,4 @@ func doDecode(args []string) error {
 	logf("skipped %d shp files", skippedSHP)
 
 	return nil
-}
-
-func writePNG(filename string, img image.Image) error {
-	var buf bytes.Buffer
-	if err := png.Encode(&buf, img); err != nil {
-		return err
-	}
-	return os.WriteFile(filename, buf.Bytes(), os.ModePerm)
-}
-
-func writeJSON(filename string, v any) error {
-	data, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		return err
-	}
-	return os.WriteFile(filename, data, os.ModePerm)
 }
