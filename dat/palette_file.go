@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"image/color"
+
+	"github.com/quasilyte/fantasy-general-tools/serdat"
 )
 
 // https://wiki.amigaos.net/wiki/ILBM_IFF_Interleaved_Bitmap
@@ -82,4 +84,16 @@ func (p *PaletteFile) GetIndex(clr color.NRGBA) uint8 {
 		return p.TransparentIndex
 	}
 	return i
+}
+
+func (p *PaletteFile) ToSerdat() serdat.Palette {
+	serialized := serdat.Palette{
+		Colors: make(map[string]string, len(p.Colors)),
+	}
+	for i, clr := range p.Colors {
+		colorKey := fmt.Sprintf("%02x", i)
+		colorHex := fmt.Sprintf("%02x%02x%02x", clr.R, clr.G, clr.B)
+		serialized.Colors[colorKey] = colorHex
+	}
+	return serialized
 }

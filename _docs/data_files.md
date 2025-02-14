@@ -25,6 +25,8 @@ The DAT folder contains these files:
 `LBM` stores the game palette (256 colors).
 The format is described here: https://wiki.amigaos.net/wiki/ILBM_IFF_Interleaved_Bitmap
 
+> See [shp_sprites.md](./shp_sprites.md) contains some info about the palette
+
 `SMK` is most likely a file containing the in-game videos.
 Could be the SMK2 type code.
 https://en.wikipedia.org/wiki/Smacker_video
@@ -48,6 +50,8 @@ FG1 SHP-files have a format very close to PG2 SHP files:
 https://www.luis-guzman.com/zips/PG2_FilesSpec.html
 
 An SHP file can encode one or more images. They may have different sizes.
+
+> See [shp_sprites.md](./shp_sprites.md) to learn more
 
 ## SAVES
 

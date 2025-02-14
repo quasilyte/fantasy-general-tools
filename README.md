@@ -44,4 +44,3 @@ Tools used:
 * basic tools like `grep`, `awk`
 * debug-enabled in DosBox (DosBox Debug)
 * custom Go scripts to patch the binary
-

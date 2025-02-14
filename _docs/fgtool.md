@@ -15,7 +15,7 @@ Open the terminal/command line. You may want to change the **working directory**
 1. Decode the game data:
 
 ```
-fgtool.exe decode --game-root "C:/GOG Games/Fantasy General"
+fgtool.exe decode -v --game-root "C:/GOG Games/Fantasy General"
 ```
 
 This will create `_output` directory in your current directory. Take a look inside, edit some files.
@@ -23,7 +23,7 @@ This will create `_output` directory in your current directory. Take a look insi
 2. Encode the modified game files:
 
 ```
-fgtool.exe encode
+fgtool.exe encode -v
 ```
 
 This will create `_patch` directory. Copy/paste files inside it into the game's folder, replacing the original files.

@@ -63,11 +63,7 @@ func doDecode(args []string) error {
 	}
 	for _, u := range magequip.Units {
 		filename := filepath.Join(outputPath, "units", fmt.Sprintf("%03d_%s", u.Index, u.Name)+".json")
-		jsonData, err := json.MarshalIndent(u.ToSerdat(), "", "  ")
-		if err != nil {
-			return err
-		}
-		if err := os.WriteFile(filename, jsonData, os.ModePerm); err != nil {
+		if err := writeJSON(filename, u.ToSerdat()); err != nil {
 			return err
 		}
 	}
@@ -80,6 +76,10 @@ func doDecode(args []string) error {
 	if err != nil {
 		return fmt.Errorf("parse palette: %v", err)
 	}
+	if err := writeJSON(filepath.Join(outputPath, "palette.json"), pal.ToSerdat()); err != nil {
+		return err
+	}
+
 	if err := os.MkdirAll(filepath.Join(outputPath, "images"), os.ModePerm); err != nil {
 		return err
 	}
@@ -150,4 +150,12 @@ func writePNG(filename string, img image.Image) error {
 		return err
 	}
 	return os.WriteFile(filename, buf.Bytes(), os.ModePerm)
+}
+
+func writeJSON(filename string, v any) error {
+	data, err := json.MarshalIndent(v, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filename, data, os.ModePerm)
 }
