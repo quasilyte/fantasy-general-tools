@@ -122,6 +122,14 @@ func doDecode(args []string) error {
 			// OK: unit roster picture
 		case strings.HasPrefix(f.Name(), "UNITICON"):
 			// OK: unit idle spritesheet (includes all units, varying size frame)
+		case strings.HasPrefix(f.Name(), "T_"):
+			// OK: tilesets
+		case strings.HasPrefix(f.Name(), "ST_"):
+			// OK: scaled-down tilesets
+		case strings.HasPrefix(f.Name(), "SP"):
+			// OK: spells
+		case strings.HasPrefix(f.Name(), "VIC"):
+			// OK: victory pictures
 		default:
 			skippedSHP++
 			logf("[!] skip %q: this file is not supported yet", f.Name())

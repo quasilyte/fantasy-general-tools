@@ -26,6 +26,12 @@ func asBytes[T any](obj *T) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(obj)), length)
 }
 
+func scanString(data *[]byte, length int) string {
+	s := string((*data)[:length])
+	*data = (*data)[length:]
+	return s
+}
+
 func scanUint8(data *[]byte) (v uint8) {
 	v = (*data)[0]
 	*data = (*data)[1:]

@@ -1,5 +1,16 @@
 # SHP and Sprites
 
+## SHP Names
+
+* `ANIM` prefix - unit death animations
+* `FANIM` prefix - unit fight animation
+* `UIF` prefix - unit sketch art in the detailed view
+* `UNITICON` - contains all "idle" sprites of units
+* `T_` prefix - tiles
+* `ST_` prefix - "small" tiles, scaled down for the map view
+* `SP` prefix - spell effects
+* `VIC` prefix - victory screen images (a hero posing)
+
 ## Palette
 
 Fantasy General 1 uses a limited 256-color palette. It's described inside `DAT/FGPAL01.LBM`.
