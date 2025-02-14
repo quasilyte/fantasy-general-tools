@@ -35,8 +35,9 @@ Information used to create this tool:
 * https://moddingwiki.shikadi.net/wiki/LBM_Format#CMAP:_Palette
 * http://blog.ssokolow.com/archives/2018/12/02/resources-for-reverse-engineering-16-bit-applications/
 * https://www.luis-guzman.com/zips/PG2_FilesSpec.html
-* https://groups.google.com/g/comp.sys.ibm.pc.games.strategic/c/Yt_sxvy67CM
+* https://groups.google.com/g/comp.sys.ibm.pc.games.strategic/c/Yt_sxvy67CM - PG1 files info
 * https://forum.shrapnelgames.com/showthread.php?p=856948
+* https://www.vogons.org/viewtopic.php?t=3944 - DosBox debug guide
 
 Tools used:
 

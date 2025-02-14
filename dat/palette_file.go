@@ -32,7 +32,7 @@ func ParsePaletteFile(data []byte) (*PaletteFile, error) {
 	data = data[2:] // skip x WORD
 	data = data[2:] // skip y WORD
 
-	nPlanes, data := scanUint8(data)
+	nPlanes := scanUint8(&data)
 	if nPlanes != 0 {
 		return nil, fmt.Errorf("BMHD: expected zero nPlanes, found %02x", nPlanes)
 	}
@@ -41,7 +41,7 @@ func ParsePaletteFile(data []byte) (*PaletteFile, error) {
 	data = data[1:] // skip compression UBYTE
 	data = data[1:] // skip pad1 UBYTE
 
-	transparentIndex, data := scanUint16(data)
+	transparentIndex := scanUint16(&data)
 	f.TransparentIndex = uint8(transparentIndex)
 
 	cmapIndex := bytes.Index(data, []byte("CMAP"))
@@ -51,7 +51,7 @@ func ParsePaletteFile(data []byte) (*PaletteFile, error) {
 
 	data = data[cmapIndex+len("CMAP"):]
 
-	paletteSize, data := scanUint32BE(data)
+	paletteSize := scanUint32BE(&data)
 	if paletteSize%3 != 0 {
 		return nil, fmt.Errorf("invalid palette size: %d", paletteSize)
 	}

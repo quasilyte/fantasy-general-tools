@@ -26,17 +26,26 @@ func asBytes[T any](obj *T) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(obj)), length)
 }
 
-func scanUint8(data []byte) (v uint8, rest []byte) {
-	v = data[0]
-	return v, data[1:]
+func scanUint8(data *[]byte) (v uint8) {
+	v = (*data)[0]
+	*data = (*data)[1:]
+	return v
 }
 
-func scanUint16(data []byte) (v uint16, rest []byte) {
-	v = binary.LittleEndian.Uint16(data)
-	return v, data[2:]
+func scanUint16(data *[]byte) (v uint16) {
+	v = binary.LittleEndian.Uint16(*data)
+	*data = (*data)[2:]
+	return v
 }
 
-func scanUint32BE(data []byte) (v uint32, rest []byte) {
-	v = binary.BigEndian.Uint32(data)
-	return v, data[4:]
+func scanUint32(data *[]byte) (v uint32) {
+	v = binary.LittleEndian.Uint32(*data)
+	*data = (*data)[4:]
+	return v
+}
+
+func scanUint32BE(data *[]byte) (v uint32) {
+	v = binary.BigEndian.Uint32(*data)
+	*data = (*data)[4:]
+	return v
 }

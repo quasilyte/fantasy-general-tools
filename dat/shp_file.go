@@ -17,7 +17,7 @@ type ShpFile struct {
 }
 
 type ShpFileImage struct {
-	PixelsOffset     int
+	DataOffset       int
 	PaletteOffset    int
 	NumPaletteColors int
 
@@ -368,28 +368,22 @@ func ParseShpFile(data []byte, pal *PaletteFile) (*ShpFile, error) {
 	}
 	data = data[len("1.10"):]
 
-	numImages := binary.LittleEndian.Uint32(data)
-	data = data[4:]
+	numImages := scanUint32(&data)
 
 	f.Images = make([]ShpFileImage, numImages)
 	for i := range f.Images {
 		img := &f.Images[i]
-		img.PixelsOffset = int(binary.LittleEndian.Uint32(data))
-		data = data[4:]
-		img.PaletteOffset = int(binary.LittleEndian.Uint32(data))
-		data = data[4:]
+		img.DataOffset = int(scanUint32(&data))
+		img.PaletteOffset = int(scanUint32(&data))
 		img.NumPaletteColors = int(binary.LittleEndian.Uint32(allData[img.PaletteOffset:]))
 	}
 
 	for i := range f.Images {
 		img := &f.Images[i]
-		imgData := allData[img.PixelsOffset:]
+		imgData := allData[img.DataOffset:]
 
-		numLines := int(binary.LittleEndian.Uint16(imgData)) + 1
-		imgData = imgData[2:]
-		img.Height = numLines
-		img.Width = int(binary.LittleEndian.Uint16(imgData)) + 1
-		imgData = imgData[2:]
+		img.Height = int(scanUint16(&imgData)) + 1
+		img.Width = int(scanUint16(&imgData)) + 1
 
 		if img.Width != f.Images[0].Width || img.Height != f.Images[0].Height {
 			f.UniSize = false
@@ -406,14 +400,10 @@ func ParseShpFile(data []byte, pal *PaletteFile) (*ShpFile, error) {
 		// Skip an unknown chunk.
 		imgData = imgData[4:]
 
-		img.StartPixelX = int(binary.LittleEndian.Uint32(imgData))
-		imgData = imgData[4:]
-		img.StartPixelY = int(binary.LittleEndian.Uint32(imgData))
-		imgData = imgData[4:]
-		img.EndPixelX = int(binary.LittleEndian.Uint32(imgData))
-		imgData = imgData[4:]
-		img.EndPixelY = int(binary.LittleEndian.Uint32(imgData))
-		imgData = imgData[4:]
+		img.StartPixelX = int(scanUint32(&imgData))
+		img.StartPixelY = int(scanUint32(&imgData))
+		img.EndPixelX = int(scanUint32(&imgData))
+		img.EndPixelY = int(scanUint32(&imgData))
 
 		isEmpty := img.StartPixelX > img.Width || img.StartPixelY > img.Height
 		if isEmpty {
