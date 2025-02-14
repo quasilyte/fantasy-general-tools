@@ -38,7 +38,9 @@ These JSON files look like this:
 }
 ```
 
-The auto-generated names are not important, but they reflect the `Index` property. Dreggo would be named `120_Dreggo.json`. This index is used as a unit ID inside all other files (maps, etc.). You may not want to change the existing unit's `Index` unless you know what you're doing.
+You can `decode` the DAT-file into a bunch of JSONs, edit those files and then `encode` it back. When the original DAT-file is replaced, the game should reflect your changes.
+
+The auto-generated file names are not important, but they reflect the `Index` property. Dreggo would be named `120_Dreggo.json`. This index is used as a unit ID inside all other files (maps, etc.). You may not want to change the existing unit's `Index` unless you know what you're doing.
 
 Instead, it is advised to change units in-place if you want to replace them with something else (without changing indices). Or you can add a new unit with a new `Index`.
 
@@ -143,3 +145,5 @@ Note that units can cast a hero spell. Their usage is not limited. This means a 
 * `berserk`
 
 If unit has less than 3 abilities, it's recommended to have blanks go after used ability slots.
+
+You may want to refer to a game manual for more details about the specific stats and abilities.

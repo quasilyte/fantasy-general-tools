@@ -10,6 +10,11 @@
 
 > You would need a legally-obtained copy of the game to use this tool.
 
+## Documentation
+
+* [data_files.md](_docs/data_files.md) - describes the known parts of Fantasy General file structure
+* [units.md](_docs/units.md) - describes unit stats and how to edit them
+
 ## Useful Resources
 
 Information used to create this tool:
