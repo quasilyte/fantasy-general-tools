@@ -36,3 +36,11 @@ Information used to create this tool:
 * https://www.luis-guzman.com/zips/PG2_FilesSpec.html
 * https://groups.google.com/g/comp.sys.ibm.pc.games.strategic/c/Yt_sxvy67CM
 * https://forum.shrapnelgames.com/showthread.php?p=856948
+
+Tools used:
+
+* `ndisasm` to dump DOS binary assembly
+* `hexl` mode in Emacs to inspect/edit binary files
+* basic tools like `grep`, `awk`
+* custom Go scripts to patch the binary
+
