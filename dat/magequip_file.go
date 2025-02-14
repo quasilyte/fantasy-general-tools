@@ -3,7 +3,6 @@ package dat
 import (
 	"fmt"
 	"os"
-	"strings"
 	"unsafe"
 
 	"github.com/quasilyte/fantasy-general-tools/serdat"
@@ -109,74 +108,6 @@ type RawMagequipUnit struct {
 	Ability3     UnitAbility
 	Race         UnitRace
 	TechLevel    byte
-}
-
-func (u *MagequipUnit) CommentString() string {
-	raw := &u.Raw
-	var buf strings.Builder
-
-	buf.WriteString(fmt.Sprintf("    0) [%02x] -- image ID\n", raw.ImageID))
-	buf.WriteString(fmt.Sprintf("    1) [%02x] -- ?\n", raw.Unknown2))
-	buf.WriteString(fmt.Sprintf("  2-3) [%02x][%02x] -- buying price (%d$)\n", raw.BuyPrice.Low, raw.BuyPrice.High, u.BuyPrice))
-	buf.WriteString(fmt.Sprintf("    4) [%02x] -- melee damage (%v)\n", raw.MeleeDamage, raw.MeleeDamage))
-	buf.WriteString(fmt.Sprintf("    5) [%02x] -- ?\n", raw.Unknown5))
-	buf.WriteString(fmt.Sprintf("    6) [%02x] -- melee damage type (%v)\n", byte(raw.MeleeDamageType), raw.MeleeDamageType))
-	buf.WriteString(fmt.Sprintf("    7) [%02x] -- ?\n", raw.Unknown7))
-	buf.WriteString(fmt.Sprintf("    8) [%02x] -- skirmish damage (%v)\n", raw.SkirmishDamage, raw.SkirmishDamage))
-	buf.WriteString(fmt.Sprintf("    9) [%02x] -- ?\n", raw.Unknown9))
-	buf.WriteString(fmt.Sprintf("   10) [%02x] -- skirmish damage type (%v)\n", byte(raw.SkirmishDamageType), raw.SkirmishDamageType))
-	buf.WriteString(fmt.Sprintf("   11) [%02x] -- ?\n", raw.Unknown11))
-	buf.WriteString(fmt.Sprintf("   12) [%02x] -- missile damage (%v)\n", byte(raw.MissileDamage), raw.MissileDamage))
-	buf.WriteString(fmt.Sprintf("   13) [%02x] -- ?\n", raw.Unknown13))
-	buf.WriteString(fmt.Sprintf("   14) [%02x] -- missile damage type (%v)\n", byte(raw.MissileDamageType), raw.MissileDamageType))
-	buf.WriteString(fmt.Sprintf("   15) [%02x] -- ?\n", raw.Unknown15))
-	buf.WriteString(fmt.Sprintf("   16) [%02x] -- siege damage (%v)\n", raw.SiegeDamage, raw.SiegeDamage))
-	buf.WriteString(fmt.Sprintf("   17) [%02x] -- ?\n", raw.Unknown17))
-	buf.WriteString(fmt.Sprintf("   18) [%02x] -- siege damage type (%v)\n", byte(raw.SiegeDamageType), raw.SiegeDamageType))
-	buf.WriteString(fmt.Sprintf("   19) [%02x] -- ?\n", raw.Unknown19))
-	buf.WriteString(fmt.Sprintf("   20) [%02x] -- side (%v)\n", byte(raw.Side), raw.Side))
-	buf.WriteString(fmt.Sprintf("   21) [%02x] -- ?\n", raw.Unknown21))
-	buf.WriteString(fmt.Sprintf("   22) [%02x] -- ?\n", raw.Unknown22))
-	buf.WriteString(fmt.Sprintf("   23) [%02x] -- ?\n", raw.Unknown23))
-	buf.WriteString(fmt.Sprintf("   24) [%02x] -- ?\n", raw.Unknown24))
-	buf.WriteString(fmt.Sprintf("   25) [%02x] -- ?\n", raw.Unknown25))
-	buf.WriteString(fmt.Sprintf("   26) [%02x] -- ?\n", raw.Unknown26))
-	buf.WriteString(fmt.Sprintf("   27) [%02x] -- ?\n", raw.Unknown27))
-	buf.WriteString(fmt.Sprintf("   28) [%02x] -- ?\n", raw.Unknown28))
-	buf.WriteString(fmt.Sprintf("   29) [%02x] -- ?\n", raw.Unknown29))
-	buf.WriteString(fmt.Sprintf("   30) [%02x] -- unit type (%v)\n", byte(raw.UnitClass), raw.UnitClass))
-	buf.WriteString(fmt.Sprintf("31-60) [%02x]...[%02x] -- unit name (%q)\n",
-		u.Name[0], u.Name[len(u.Name)-1], u.Name))
-	buf.WriteString(fmt.Sprintf("   61) [%02x] -- life (%v)\n", raw.Life, raw.Life))
-	buf.WriteString(fmt.Sprintf("   62) [%02x] -- attacks (%v)\n", raw.NumAttacks, raw.NumAttacks))
-	buf.WriteString(fmt.Sprintf("   63) [%02x] -- armor (%v)\n", raw.Armor, raw.Armor))
-	buf.WriteString(fmt.Sprintf("   64) [%02x] -- magic defense (%v)\n", raw.MagicDefense, raw.MagicDefense))
-	buf.WriteString(fmt.Sprintf("   65) [%02x] -- speed (%v)\n", raw.Speed, raw.Speed))
-	buf.WriteString(fmt.Sprintf("   66) [%02x] -- search range (%v)\n", raw.SearchRange, raw.SearchRange))
-	if raw.Spell != 0 {
-		buf.WriteString(fmt.Sprintf("   67) [%02x] -- spell (%v)\n", byte(raw.Spell), raw.Spell))
-	} else {
-		buf.WriteString(fmt.Sprintf("   67) [%02x] -- spell\n", byte(raw.Spell)))
-	}
-	buf.WriteString(fmt.Sprintf("   68) [%02x] -- movement type (%v)\n", byte(raw.MovementType), raw.MovementType))
-	if raw.Ability1 != 0 {
-		buf.WriteString(fmt.Sprintf("   69) [%02x] -- ability A (%v)\n", byte(raw.Ability1), raw.Ability1))
-	} else {
-		buf.WriteString(fmt.Sprintf("   69) [%02x] -- ability A\n", byte(raw.Ability1)))
-	}
-	if raw.Ability2 != 0 {
-		buf.WriteString(fmt.Sprintf("   70) [%02x] -- ability B (%v)\n", byte(raw.Ability2), raw.Ability2))
-	} else {
-		buf.WriteString(fmt.Sprintf("   70) [%02x] -- ability B\n", byte(raw.Ability2)))
-	}
-	if raw.Ability3 != 0 {
-		buf.WriteString(fmt.Sprintf("   71) [%02x] -- ability C (%v)\n", byte(raw.Ability3), raw.Ability3))
-	} else {
-		buf.WriteString(fmt.Sprintf("   71) [%02x] -- ability C\n", byte(raw.Ability3)))
-	}
-	buf.WriteString(fmt.Sprintf("   72) [%02x] -- race (%v)\n", byte(raw.Race), raw.Race))
-
-	return buf.String()
 }
 
 type UnitRace byte
