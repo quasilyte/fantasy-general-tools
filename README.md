@@ -21,6 +21,7 @@ You can also [build it from sources](_docs/from_sources.md).
 * [fgtool.md](_docs/fgtool.md) - how to use this tool
 * [data_files.md](_docs/data_files.md) - describes the known parts of Fantasy General file structure
 * [units.md](_docs/units.md) - describes unit stats and how to edit them
+* [shp_sprites.md](_docs/shp_sprites.md) - sprite and palette related info
 
 ## Support
 
