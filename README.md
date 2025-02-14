@@ -10,6 +10,12 @@
 
 > You would need a legally-obtained copy of the game to use this tool.
 
+## Installation
+
+It's recommended to download the [latest release binary](https://github.com/quasilyte/fantasy-general-tools/releases) for your system.
+
+You can also [build it from sources](_docs/from_sources.md).
+
 ## Documentation
 
 * [fgtool.md](_docs/fgtool.md) - how to use this tool
