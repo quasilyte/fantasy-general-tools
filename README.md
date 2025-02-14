@@ -22,6 +22,10 @@ You can also [build it from sources](_docs/from_sources.md).
 * [data_files.md](_docs/data_files.md) - describes the known parts of Fantasy General file structure
 * [units.md](_docs/units.md) - describes unit stats and how to edit them
 
+## Support
+
+Want to support the author? Add [my game](https://store.steampowered.com/app/3024370/NebuLeet) to your Steam wishlist.
+
 ## Useful Resources
 
 Information used to create this tool:
