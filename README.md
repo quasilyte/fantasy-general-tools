@@ -42,5 +42,6 @@ Tools used:
 * `ndisasm` to dump DOS binary assembly
 * `hexl` mode in Emacs to inspect/edit binary files
 * basic tools like `grep`, `awk`
+* debug-enabled in DosBox (DosBox Debug)
 * custom Go scripts to patch the binary
 
