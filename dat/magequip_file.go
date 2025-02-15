@@ -402,14 +402,7 @@ func ParseMagequipFile(filename string) (*MagequipFile, error) {
 			Raw:   raw,
 			Index: i,
 		}
-		nameLength := 0
-		for _, ch := range raw.Name {
-			if ch == 0 {
-				break
-			}
-			nameLength++
-		}
-		u.Name = string(raw.Name[:nameLength])
+		u.Name = trimCstring(raw.Name[:])
 
 		u.BuyPrice = raw.BuyPrice.ToInt()
 		f.Units = append(f.Units, u)

@@ -1,6 +1,7 @@
 package dat
 
 import (
+	"bytes"
 	"encoding/binary"
 	"unsafe"
 )
@@ -26,32 +27,52 @@ func asBytes[T any](obj *T) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(obj)), length)
 }
 
+func trimCstring(raw []byte) string {
+	nullByte := bytes.IndexByte(raw, 0)
+	if nullByte != -1 {
+		raw = raw[:nullByte]
+	}
+	return string(raw)
+}
+
 func scanString(data *[]byte, length int) string {
-	s := string((*data)[:length])
+	realLength := length
+	nullByte := bytes.IndexByte(*data, 0)
+	if nullByte != -1 && nullByte < length {
+		realLength = nullByte
+	}
+
+	s := string((*data)[:realLength])
 	*data = (*data)[length:]
 	return s
 }
 
-func scanUint8(data *[]byte) (v uint8) {
-	v = (*data)[0]
+func scanBool(data *[]byte) bool {
+	v := (*data)[0]
+	*data = (*data)[1:]
+	return v != 0
+}
+
+func scanUint8(data *[]byte) uint8 {
+	v := (*data)[0]
 	*data = (*data)[1:]
 	return v
 }
 
-func scanUint16(data *[]byte) (v uint16) {
-	v = binary.LittleEndian.Uint16(*data)
+func scanUint16(data *[]byte) uint16 {
+	v := binary.LittleEndian.Uint16(*data)
 	*data = (*data)[2:]
 	return v
 }
 
-func scanUint32(data *[]byte) (v uint32) {
-	v = binary.LittleEndian.Uint32(*data)
+func scanUint32(data *[]byte) uint32 {
+	v := binary.LittleEndian.Uint32(*data)
 	*data = (*data)[4:]
 	return v
 }
 
-func scanUint32BE(data *[]byte) (v uint32) {
-	v = binary.BigEndian.Uint32(*data)
+func scanUint32BE(data *[]byte) uint32 {
+	v := binary.BigEndian.Uint32(*data)
 	*data = (*data)[4:]
 	return v
 }
