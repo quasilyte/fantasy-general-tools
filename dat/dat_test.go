@@ -16,3 +16,9 @@ func TestTileSize(t *testing.T) {
 		t.Fatalf("RawTile size is %d", s)
 	}
 }
+
+func TestSceneUnitSize(t *testing.T) {
+	if s := unsafe.Sizeof(RawSceneUnit{}); s != rawSceneUnitSize {
+		t.Fatalf("RawSceneUnit size is %d", s)
+	}
+}

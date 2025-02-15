@@ -36,10 +36,10 @@ type MapFile struct {
 }
 
 func ParseMapFile(data []byte) (*MapFile, error) {
-	return scanMapFile(&data)
+	return scanMapFile(&data, false)
 }
 
-func scanMapFile(data *[]byte) (*MapFile, error) {
+func scanMapFile(data *[]byte, scene bool) (*MapFile, error) {
 	f := &MapFile{}
 
 	f.Cols = int(scanUint16(data))
@@ -50,6 +50,17 @@ func scanMapFile(data *[]byte) (*MapFile, error) {
 		return nil, err
 	}
 	f.Tiles = tiles
+
+	if scene {
+		// Campaign maps have extra 8 bytes in here.
+		// They seem to correspond to the continent:
+		// * 00060900 for desert
+		// * 00040300 for plains
+		// * 00160500 for jungle (but scen24 has 00140a00)
+		// * 00120300 for volcano
+		// Needs investigation.
+		*data = (*data)[4:]
+	}
 
 	// The next 25 bytes are related to a tile bank.
 	copy(f.Tilebank[:], (*data)[:len(f.Tilebank)])
