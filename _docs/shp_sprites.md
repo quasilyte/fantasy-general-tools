@@ -11,6 +11,25 @@
 * `SP` prefix - spell effects
 * `VIC` prefix - victory screen images (a hero posing)
 
+## Tiles
+
+Tiles:
+
+* `T_${LOC}CL.SHP` (e.g. `T_DESCL.SHP`) - clear and rough tiles
+* `T_${LOC}CT.SHP` (e.g. `T_DESCT.SHP`) - cities, shrines, towers
+* `T_${LOC}MN.SHP` (e.g. `T_DESMN.SHP`) - mountains
+* `T_${LOC}RD.SHP` (e.g. `T_DESRD.SHP`) - roads
+* `T_${LOC}RV.SHP` (e.g. `T_DESRV.SHP`) - river
+
+Location codes:
+
+* `DES` - desert
+* `JUN` - jungle
+* `SNW` - snowy
+* `VOL` - volcano
+
+There is an exception to this: plains have no "code" and their files are named like `T_CLEAR.SHP`, `T_RIVER.SHP`.
+
 ## Palette
 
 Fantasy General 1 uses a limited 256-color palette. It's described inside `DAT/FGPAL01.LBM`.
