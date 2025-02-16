@@ -45,14 +45,9 @@ func scanMapFile(data *[]byte, scene bool) (*MapFile, error) {
 	f.Cols = int(scanUint16(data))
 	f.Rows = int(scanUint16(data))
 
-	tiles, err := scanTiles(f.Cols, f.Rows, data)
-	if err != nil {
-		return nil, err
-	}
-	f.Tiles = tiles
-
 	if scene {
-		// Campaign maps have extra 8 bytes in here.
+		// TODO
+		// Campaign maps have extra 4 bytes in here.
 		// They seem to correspond to the continent:
 		// * 00060900 for desert
 		// * 00040300 for plains
@@ -61,6 +56,12 @@ func scanMapFile(data *[]byte, scene bool) (*MapFile, error) {
 		// Needs investigation.
 		*data = (*data)[4:]
 	}
+
+	tiles, err := scanTiles(f.Cols, f.Rows, data)
+	if err != nil {
+		return nil, err
+	}
+	f.Tiles = tiles
 
 	// The next 25 bytes are related to a tile bank.
 	copy(f.Tilebank[:], (*data)[:len(f.Tilebank)])
