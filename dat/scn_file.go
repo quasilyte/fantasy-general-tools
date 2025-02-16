@@ -150,6 +150,10 @@ func ParseScnFile(data []byte) (*ScnFile, error) {
 	// The current section has variable-length data (but it never exceeds
 	// the limits described above.
 
+	// TODO: analyze this section.
+	// It has something to do with shrine rewards.
+	// data[4] in SCEN2 can change the loot table
+
 	// After we handled the section, continue
 	// from the next section to skip all 0xff in-between.
 	data = nextDataChunk
