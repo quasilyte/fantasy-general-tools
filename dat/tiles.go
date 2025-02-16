@@ -13,9 +13,10 @@ const (
 const rawTileSize = 19
 
 type RawTile struct {
-	_          [14]byte  // unknown
+	NameIndex  byte      // An index inside the map's name array
+	_          [13]byte  // unknown
 	ImageIndex byte      // An image index inside page (e.g. frame)
-	_          byte      // unknown, usually 0x80, could be related to ImageID (uint16?)
+	_          byte      // usually 0x80 in MAP and 0 in SCN
 	ImagePage  ImagePage // An image page
 	Kind       TileKind
 	_          byte
